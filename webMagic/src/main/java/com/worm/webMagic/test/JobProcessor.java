@@ -52,16 +52,16 @@ public class JobProcessor implements PageProcessor {
 //                .run();//开始爬取
 //    }
 
-//    布隆过滤器
-    public static void main(String[] args) {
-        Spider spider = Spider.create(new JobProcessor())
-                .addUrl("https://wh.ke.com/ershoufang/104104034939.html?fb_expo_id=405689748532592640")
-                .thread(5)
-                .setScheduler(new QueueScheduler().setDuplicateRemover(new BloomFilterDuplicateRemover(10000000)));//设置布隆去重过滤器，最大一千万条数据
-
-        Scheduler scheduler = spider.getScheduler();
-        spider.run();
-    }
+    //布隆过滤器
+//    public static void main(String[] args) {
+//        Spider spider = Spider.create(new JobProcessor())
+//                .addUrl("https://wh.ke.com/ershoufang/104104034939.html?fb_expo_id=405689748532592640")
+//                .thread(5)
+//                .setScheduler(new QueueScheduler().setDuplicateRemover(new BloomFilterDuplicateRemover(10000000)));//设置布隆去重过滤器，最大一千万条数据
+//
+//        Scheduler scheduler = spider.getScheduler();
+//        spider.run();
+//    }
 
     //hashset过滤器
 //    public static void main(String[] args) {
