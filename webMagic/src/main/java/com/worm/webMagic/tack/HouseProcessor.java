@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @Component
-public class JobProcessor implements PageProcessor {
+public class HouseProcessor implements PageProcessor {
     /**
      * 爬取的url
      */
@@ -49,7 +49,7 @@ public class JobProcessor implements PageProcessor {
         }else {
              for(Selectable selectable : list){
                  String info = selectable.links().toString();
-//                 System.out.println(info);
+                 System.out.println(info);
                  page.addTargetRequest(info);
              }
         }
@@ -76,7 +76,7 @@ public class JobProcessor implements PageProcessor {
      */
     @Scheduled(initialDelay = 1000,fixedDelay = 100*1000)
     public void process(){
-        Spider.create(new JobProcessor())
+        Spider.create(new HouseProcessor())
                 .addUrl(url)
                 .setScheduler(new QueueScheduler().setDuplicateRemover(new BloomFilterDuplicateRemover(100000)))
                 .thread(10)

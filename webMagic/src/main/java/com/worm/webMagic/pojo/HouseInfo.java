@@ -10,12 +10,12 @@ import javax.persistence.Id;
  * @version 0.0.1
  * @project webMagic
  * @package com.worm.webMagic.pojo
- * @classname JobInfo
+ * @classname HouseInfo
  * @since 0.0.1
  */
 
 @Entity
-public class JobInfo {
+public class HouseInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     /**

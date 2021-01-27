@@ -1,6 +1,6 @@
 package com.worm.webMagic.dao;
 
-import com.worm.webMagic.pojo.JobInfo;
+import com.worm.webMagic.pojo.HouseInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 0.0.1
  * @project webMagic
  * @package com.worm.webMagic.dao
- * @classname JobInfoDao
+ * @classname HouseInfoDao
  * @since 0.0.1
  */
-public interface JobInfoDao extends JpaRepository<JobInfo, Integer> {
+public interface HouseInfoDao extends JpaRepository<HouseInfo, Integer> {
 
 }
