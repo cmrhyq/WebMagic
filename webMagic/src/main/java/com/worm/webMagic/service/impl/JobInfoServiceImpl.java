@@ -11,6 +11,15 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * @author AlanWalker on 2021/1/26 15:49
+ * @version 0.0.1
+ * @project webMagic
+ * @package com.worm.webMagic.pojo
+ * @classname JobInfo
+ * @since 0.0.1
+ */
+
 @Service
 public class JobInfoServiceImpl implements JobInfoService {
 

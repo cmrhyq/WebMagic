@@ -4,6 +4,15 @@ import com.worm.webMagic.pojo.JobInfo;
 
 import java.util.List;
 
+/**
+ * @author AlanWalker on 2021/1/26 15:42
+ * @version 0.0.1
+ * @project webMagic
+ * @package com.worm.webMagic.pojo
+ * @classname JobInfo
+ * @since 0.0.1
+ */
+
 public interface JobInfoService {
 
     /**

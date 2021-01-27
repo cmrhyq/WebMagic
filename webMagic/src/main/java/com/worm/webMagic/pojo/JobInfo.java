@@ -5,18 +5,54 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * @author AlanWalker on 2021/1/26 15:30
+ * @version 0.0.1
+ * @project webMagic
+ * @package com.worm.webMagic.pojo
+ * @classname JobInfo
+ * @since 0.0.1
+ */
+
 @Entity
 public class JobInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /**
+     * 房源id
+     */
     private int houseInfoId;
+    /**
+     * 房源小区名称
+     */
     private String houseInfoCommunityName;
+    /**
+     * 房源所在区域
+     */
     private String houseInfoArea;
+    /**
+     * 看房信息
+     */
     private String houseInfoLookTime;
+    /**
+     * 房屋编号
+     */
     private int houseInfoNumber;
+    /**
+     * 房源所在省市
+     */
     private String houseInfoPlaceProvinceCity;
+    /**
+     * 房源页面地址
+     */
     private String houseInfoUrl;
+    /**
+     * 创建时间
+     */
     private String createTime;
+    /**
+     * 更新时间
+     */
     private String modifiedTime;
 
     public int getHouseInfoId() {
