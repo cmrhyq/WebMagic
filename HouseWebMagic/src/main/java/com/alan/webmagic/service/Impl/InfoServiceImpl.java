@@ -9,15 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class InfoServiceImpl implements InfoService {
-    @Autowired
+    //    @Autowired
+    @Resource
     private CityInfoDao cityInfoDao;
 
-    @Autowired
+    //    @Autowired
+    @Resource
     private HouseInfoDao houseInfoDao;
 
     @Override
@@ -29,7 +32,7 @@ public class InfoServiceImpl implements InfoService {
 
         List<HouseInfo> list = this.findHouseInfo(param);
 
-        if (list.size()==0){
+        if (list.size() == 0) {
             this.houseInfoDao.saveAndFlush(houseInfo);
         }
     }

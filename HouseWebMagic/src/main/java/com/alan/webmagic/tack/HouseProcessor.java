@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.JedisPool;
@@ -28,6 +29,7 @@ import java.util.List;
 
 @Component
 @Slf4j
+//@Configuration
 public class HouseProcessor implements PageProcessor {
     @Autowired
     private InfoService infoService;
@@ -43,7 +45,8 @@ public class HouseProcessor implements PageProcessor {
      * 楼盘页面地址es.fang.ke.com/loupan/pg1
      */
 //    private String url = "https://wh.ke.com/ershoufang/pg";
-    List<CityInfo> cityUrl = infoService.findCityInfoOne();
+    List<CityInfo> cityUrl;
+//    List<CityInfo> cityUrl = infoService.findCityInfoOne();
 
     /**
      * 编码，超时时间，重试时间,重试次数
@@ -127,19 +130,29 @@ public class HouseProcessor implements PageProcessor {
      */
     @Scheduled(initialDelay = 1000, fixedDelay = 100 * 1000)
     public void process() {
+        cityUrl = infoService.findCityInfoOne();
         Spider spider = Spider.create(new HouseProcessor())
 //                .addUrl(url)
                 .setScheduler(new QueueScheduler().setDuplicateRemover(new BloomFilterDuplicateRemover(100000)))
+                .addPipeline(springDataPipeline)
 //                .setScheduler(new RedisScheduler(jedisPool))
                 .thread(10);
-        for (int j=0;j<=cityUrl.size();j++){
-            String url = cityUrl.get(j).getCityUrl();
-            System.out.println("url = " + url);
+//        for (int j = 0; j < cityUrl.size(); j++) {
+//            String url = cityUrl.get(j).getCityUrl();
+//            System.out.println("url = " + url);
+//            for (int i = 1; i < 101; ++i) {
+//                spider.addUrl(url + "ershoufang/pg" + i + "/");
+//            }
+//        }
+
+        for (CityInfo city :
+                cityUrl) {
+            log.info(city.getCityUrl());
             for (int i = 1; i < 101; ++i) {
-                spider.addUrl(url+"ershoufang/pg" + i + "/");
+                spider.addUrl(city.getCityUrl() + "ershoufang/pg" + i + "/");
             }
         }
-        spider.addPipeline(this.springDataPipeline);
+//        spider.addPipeline(this.springDataPipeline);
         spider.run();
     }
 }

@@ -5,6 +5,7 @@ import com.alan.webmagic.dao.RealEstateDao;
 import com.alan.webmagic.domain.HouseInfo;
 import com.alan.webmagic.domain.RealEstate;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,8 +27,9 @@ import javax.xml.transform.Result;
  * @implNote
  * @since 0.0.1
  */
-@Component
+//@Component
 @Slf4j
+@Configuration
 public class SpringDataPipeline implements Pipeline {
     @Autowired
     private HouseInfoDao houseInfoDao;
@@ -42,7 +44,7 @@ public class SpringDataPipeline implements Pipeline {
      * @param task
      */
     @Override
-    public void process(ResultItems resultItems, Task task){
+    public void process(ResultItems resultItems, Task task) {
         HouseInfo houseInfo = resultItems.get("houseInfo");
         RealEstate realEstate = resultItems.get("realEstate");
 //        HouseInfo houseInfo1 = resultItems.get("url");
