@@ -29,20 +29,12 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes = WebmagicApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CityInfoDaoTest {
 
-    @Resource
-    private CityInfoDao cityInfoDao;
-
     @Before
     public void setUp() throws Exception {
     }
 
     @After
     public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void findCityUrlOne() {
-        log.info(String.valueOf(cityInfoDao.findCityUrlOne()));
     }
 
     @Test

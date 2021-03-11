@@ -1,15 +1,11 @@
 package com.alan.webmagic.tack;
 
-import com.alan.webmagic.dao.CityInfoDao;
-import com.alan.webmagic.dao.HouseInfoDao;
-import com.alan.webmagic.domain.CityInfo;
 import com.alan.webmagic.domain.HouseInfo;
 import com.alan.webmagic.service.InfoService;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.JedisPool;
@@ -19,7 +15,6 @@ import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.scheduler.BloomFilterDuplicateRemover;
 import us.codecraft.webmagic.scheduler.QueueScheduler;
-import us.codecraft.webmagic.scheduler.RedisScheduler;
 import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.Selectable;
 
@@ -44,9 +39,7 @@ public class HouseProcessor implements PageProcessor {
      * 二手房页面地址wh.ke.con/ershoufang/pg1
      * 楼盘页面地址es.fang.ke.com/loupan/pg1
      */
-//    private String url = "https://wh.ke.com/ershoufang/pg";
-    List<CityInfo> cityUrl;
-//    List<CityInfo> cityUrl = infoService.findCityInfoOne();
+    private String url = "https://wh.ke.com/ershoufang/pg";
 
     /**
      * 编码，超时时间，重试时间,重试次数
@@ -130,29 +123,14 @@ public class HouseProcessor implements PageProcessor {
      */
     @Scheduled(initialDelay = 1000, fixedDelay = 100 * 1000)
     public void process() {
-        cityUrl = infoService.findCityInfoOne();
         Spider spider = Spider.create(new HouseProcessor())
-//                .addUrl(url)
                 .setScheduler(new QueueScheduler().setDuplicateRemover(new BloomFilterDuplicateRemover(100000)))
                 .addPipeline(springDataPipeline)
 //                .setScheduler(new RedisScheduler(jedisPool))
                 .thread(10);
-//        for (int j = 0; j < cityUrl.size(); j++) {
-//            String url = cityUrl.get(j).getCityUrl();
-//            System.out.println("url = " + url);
-//            for (int i = 1; i < 101; ++i) {
-//                spider.addUrl(url + "ershoufang/pg" + i + "/");
-//            }
-//        }
-
-        for (CityInfo city :
-                cityUrl) {
-            log.info(city.getCityUrl());
-            for (int i = 1; i < 101; ++i) {
-                spider.addUrl(city.getCityUrl() + "ershoufang/pg" + i + "/");
-            }
-        }
-//        spider.addPipeline(this.springDataPipeline);
+                for (int i = 1; i < 101; ++i) {
+                    spider.addUrl(url + i + "/");
+                }
         spider.run();
     }
 }
